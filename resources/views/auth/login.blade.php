@@ -15,11 +15,12 @@
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto h-10 w-auto"
                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company" />
+                alt="Badminton App" />
         </div>
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border border-gray-200 rounded-xl shadow-md p-6 bg-white">
             <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-            <form class="space-y-6 mt-10" action="#" method="POST">
+            <form class="space-y-6 mt-10" action="{{ route('login') }}" method="POST">
+                @csrf
                 <div>
                     <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
                     <div class="mt-2">
@@ -36,7 +37,7 @@
                         </div>
                     </div>
                     <div class="mt-2">
-                        <input type="password" name="password" id="password" autocomplete="current-password" required
+                        <input type="password" name="password" id="password" autocomplete="password" required
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                     </div>
                 </div>
