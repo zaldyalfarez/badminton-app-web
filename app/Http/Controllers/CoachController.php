@@ -124,7 +124,7 @@ class CoachController extends Controller
             $data = $response->json();
 
             if ($response->successful()) {
-                return redirect()->route('dashboard.coach', ['id' => $id])->with('success', 'Akun coah berhasil dihapus.');
+                return redirect()->route('dashboard.coach', ['id' => $id])->with('success', 'Akun coach berhasil dihapus.');
             } else {
                 $message = $data['meta']['message'] ?? 'Gagal menghapus akun coach.';
                 return redirect()->route('dashboard.coach', ['id' => $id])->with('error', $message);

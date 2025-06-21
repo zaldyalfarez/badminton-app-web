@@ -25,6 +25,10 @@ class AuthController extends Controller
         if ($response->successful() && isset($data['data']['token'])) {
             $user = $data['data']['userLogin'];
 
+            if ($user['role'] !== 'admin') {
+                return back()->withErrors(['login' => 'Akun ini tidak memiliki izin untuk masuk.']);
+            }
+
             Session::put('jwt_token', $data['data']['token']);
             Session::put('role', $user['role']);
 
@@ -33,6 +37,7 @@ class AuthController extends Controller
 
         return back()->withErrors(['login' => $data['meta']['message'] ?? 'Email atau password salah']);
     }
+
 
     public function logout(Request $request)
     {

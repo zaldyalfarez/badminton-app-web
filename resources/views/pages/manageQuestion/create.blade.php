@@ -198,7 +198,7 @@
                                                         <div class="inline-flex items-center gap-2">
                                                             <a href="/dashboard/question/edit/{{ $item['id'] }}"
                                                                 class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                            <a href="#" @click.prevent="open = true"
+                                                            <a href="" @click.prevent="open = true"
                                                                 class="text-red-600 hover:text-red-900 ms-1">Delete</a>
 
                                                             <!-- Modal Delete -->

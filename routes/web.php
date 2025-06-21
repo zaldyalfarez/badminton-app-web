@@ -7,7 +7,6 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserController;
-use Symfony\Component\Console\Question\Question;
 
 // Auth
 Route::middleware(['isGuest'])->group(function () {

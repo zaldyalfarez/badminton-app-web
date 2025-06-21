@@ -116,7 +116,7 @@
                                             <div x-data="{ open_{{ $exam['id'] }}: false }" class="inline-flex items-center gap-2">
                                                 <a href="/dashboard/exam/edit/{{ $exam['id'] }}"
                                                     class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                <a href="#" @click.prevent="open_{{ $exam['id'] }} = true"
+                                                <a href="" @click.prevent="open_{{ $exam['id'] }} = true"
                                                     class="text-red-600 hover:text-red-900 ms-1">Delete</a>
 
                                                 <!-- Modal Delete -->
@@ -182,7 +182,6 @@
                                     </tr>
                                 @endforelse
                             </tbody>
-
                         </table>
                     </div>
                 </div>

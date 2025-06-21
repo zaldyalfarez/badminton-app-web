@@ -128,7 +128,7 @@
                                                     class="text-indigo-600 hover:text-indigo-900">
                                                     Edit
                                                 </a>
-                                                <a href="#" @click.prevent="open_{{ $practice['id'] }} = true"
+                                                <a href="" @click.prevent="open_{{ $practice['id'] }} = true"
                                                     class="text-red-600 hover:text-red-900">
                                                     Delete
                                                 </a>

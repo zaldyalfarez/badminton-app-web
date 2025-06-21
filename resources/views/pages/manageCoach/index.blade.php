@@ -122,7 +122,7 @@
                                                     class="text-indigo-600 hover:text-indigo-900">Edit</a>
 
                                                 {{-- Delete --}}
-                                                <a href="#" @click.prevent="open_{{ $coach['id'] }} = true"
+                                                <a href="" @click.prevent="open_{{ $coach['id'] }} = true"
                                                     class="text-red-600 hover:text-red-900 ms-1">Delete</a>
 
                                                 {{-- Modal Delete --}}
