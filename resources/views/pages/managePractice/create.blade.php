@@ -6,7 +6,17 @@
             <h1 class="text-xl font-semibold">Create Pratice</h1>
         </div>
         <div class="px-4 py-5 sm:p-6">
-            <form action="" class="p-4">
+            <form action="{{ route('practice.create') }}" method="POST" class="p-4">
+                @csrf
+                <div class="relative flex items-start mb-5">
+                    <div class="flex h-6 items-center">
+                        <input id="ar" aria-describedby="ar" name="ar" type="checkbox" value="1"
+                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                    </div>
+                    <div class="ml-3 text-sm leading-6">
+                        <label for="ar" class="font-medium text-gray-900">Augmented Reality</label>
+                    </div>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-900">Practice Name</label>
@@ -16,9 +26,9 @@
                         </div>
                     </div>
                     <div>
-                        <label for="category" class="block text-sm font-medium text-gray-900">Category</label>
+                        <label for="kategori" class="block text-sm font-medium text-gray-900">Category</label>
                         <div class="mt-2">
-                            <input id="category" name="category" type="text" autocomplete="category"
+                            <input id="kategori" name="kategori" type="text" autocomplete="kategori"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>
@@ -30,16 +40,16 @@
                         </div>
                     </div>
                     <div>
-                        <label for="text" class="block text-sm font-medium text-gray-900">Duration (minute)</label>
+                        <label for="durasi" class="block text-sm font-medium text-gray-900">Duration (minute)</label>
                         <div class="mt-2">
-                            <input id="text" name="text" type="text" autocomplete="text-duration"
+                            <input id="durasi" name="durasi" type="durasi" autocomplete="durasi"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>
                     <div class="col-span-full">
-                        <label for="description" class="block text-sm/6 font-medium text-gray-900">Description</label>
+                        <label for="deskripsi" class="block text-sm/6 font-medium text-gray-900">Description</label>
                         <div class="mt-2">
-                            <textarea name="description" id="description" rows="5"
+                            <textarea name="deskripsi" id="deskripsi" rows="5"
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
                         </div>
                     </div>

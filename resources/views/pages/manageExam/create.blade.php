@@ -6,7 +6,8 @@
             <h1 class="text-xl font-semibold">Create Exam</h1>
         </div>
         <div class="px-4 py-5 sm:p-6">
-            <form action="" class="p-4">
+            <form action="{{ route('exam.create') }}" method="POST" class="p-4">
+                @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-900">Exam Name</label>
@@ -16,13 +17,13 @@
                         </div>
                     </div>
                     <div>
-                        <label for="level" class="block text-sm/6 font-medium text-gray-900">Type</label>
+                        <label for="type" class="block text-sm/6 font-medium text-gray-900">Type</label>
                         <div class="mt-2 grid grid-cols-1">
-                            <select id="level" name="level" autocomplete="level-name"
+                            <select id="type" name="type" autocomplete="type"
                                 class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 <option selected disabled>Choose Type</option>
-                                <option>Teori</option>
-                                <option>Praktik</option>
+                                <option value="Teori">Theory</option>
+                                <option value="Praktik">Practice</option>
                             </select>
                             <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
                                 viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -35,12 +36,12 @@
                     <div>
                         <label for="level" class="block text-sm/6 font-medium text-gray-900">Level</label>
                         <div class="mt-2 grid grid-cols-1">
-                            <select id="level" name="level" autocomplete="level-name"
+                            <select id="level" name="level" autocomplete="level"
                                 class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                 <option selected disabled>Choose Level</option>
-                                <option>Mudah</option>
-                                <option>Menengah</option>
-                                <option>Sulit</option>
+                                <option value="Mudah">Easy</option>
+                                <option value="Normal">Medium</option>
+                                <option value="Sulit">Hard</option>
                             </select>
                             <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
                                 viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -51,9 +52,9 @@
                         </div>
                     </div>
                     <div>
-                        <label for="text" class="block text-sm font-medium text-gray-900">Duration (minute)</label>
+                        <label for="duration" class="block text-sm font-medium text-gray-900">Duration (minute)</label>
                         <div class="mt-2">
-                            <input id="text" name="text" type="text" autocomplete="text-duration"
+                            <input id="duration" name="duration" type="text" autocomplete="duration"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>

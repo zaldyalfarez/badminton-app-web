@@ -13,7 +13,7 @@
 
 <body class="bg-gray-100 text-gray-900">
     <div class="flex min-h-screen">
-        <aside class="w-64 bg-white shadow-md">
+        <aside class="w-64 bg-white shadow-md h-screen sticky top-0">
             @include('components.sidebar')
         </aside>
 

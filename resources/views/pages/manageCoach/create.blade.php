@@ -6,7 +6,8 @@
             <h1 class="text-xl font-semibold">Create Coach Account</h1>
         </div>
         <div class="px-4 py-5 sm:p-6">
-            <form action="" class="p-4">
+            <form action="{{ route('coach.create') }}" method="POST" class="p-4">
+                @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-900">Full Name</label>
@@ -25,7 +26,7 @@
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-900">Password</label>
                         <div class="mt-2">
-                            <input id="password" name="password" type="password" autocomplete="new-password"
+                            <input id="password" name="password" type="password" autocomplete="password"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>

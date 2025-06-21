@@ -3,15 +3,18 @@
 @section('content')
     <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div class="px-4 py-5 sm:px-6">
-            <h1 class="text-xl font-semibold">Tambah Coach</h1>
+            <h1 class="text-xl font-semibold">Edit Coach Account</h1>
         </div>
         <div class="px-4 py-5 sm:p-6">
-            <form action="" class="p-4">
+            <form action="{{ route('coach.edit', $coach['id']) }}" method="POST" class="p-4">
+                @csrf
+                @method('PUT')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-900">Full Name</label>
                         <div class="mt-2">
                             <input id="name" name="name" type="text" autocomplete="name"
+                                value="{{ $coach['name'] }}"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>
@@ -19,13 +22,14 @@
                         <label for="email" class="block text-sm font-medium text-gray-900">Email Address</label>
                         <div class="mt-2">
                             <input id="email" name="email" type="email" autocomplete="email"
+                                value="{{ $coach['email'] }}"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-900">Password</label>
                         <div class="mt-2">
-                            <input id="password" name="password" type="password" autocomplete="new-password"
+                            <input id="password" name="password" type="password" autocomplete="password"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>

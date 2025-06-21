@@ -17,9 +17,9 @@ class AuthJwtMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!Session::has('jwt_token')) {
-            return redirect('/')->withErrors(['login' => 'Silakan login terlebih dahulu.']);
+            return redirect('/')->withErrors(['login' => 'Silakan login sebagai admin untuk melanjutkan.']);
         }
-
+        
         return $next($request);
     }
 }

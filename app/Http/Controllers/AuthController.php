@@ -23,7 +23,11 @@ class AuthController extends Controller
         $data = $response->json();
 
         if ($response->successful() && isset($data['data']['token'])) {
+            $user = $data['data']['userLogin'];
+
             Session::put('jwt_token', $data['data']['token']);
+            Session::put('role', $user['role']);
+
             return redirect('/dashboard');
         }
 
