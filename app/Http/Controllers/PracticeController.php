@@ -53,7 +53,7 @@ class PracticeController extends Controller
                     'kategori' => $validated['kategori'],
                     'deskripsi' => $validated['deskripsi'],
                     'video' => $validated['video'],
-                    'ar' => $ar,
+                    'ar' => $ar
                 ]);
 
             if ($response->successful()) {

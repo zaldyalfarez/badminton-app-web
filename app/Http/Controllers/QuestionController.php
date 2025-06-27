@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class QuestionController extends Controller
 {
@@ -69,28 +71,48 @@ class QuestionController extends Controller
             'optionC' => 'required|string',
             'optionD' => 'required|string',
             'answer' => 'required|string',
+            'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:10240',
+            'video' => 'nullable|string',
         ]);
 
+        $payload = [
+            'ujianId' => $id,
+            'question' => $validated['question'],
+            'optionA' => $validated['optionA'],
+            'optionB' => $validated['optionB'],
+            'optionC' => $validated['optionC'],
+            'optionD' => $validated['optionD'],
+            'answer' => $validated['answer'],
+        ];
+
+        if (!empty($validated['video'])) {
+            $payload['video'] = $validated['video'];
+        }
+
         try {
-            $response = Http::withToken(Session::get('jwt_token'))
-                ->post('https://api.arsitek-kode.com/api/soal', [
-                    'ujianId' => $id,
-                    'question' => $validated['question'],
-                    'optionA' => $validated['optionA'],
-                    'optionB' => $validated['optionB'],
-                    'optionC' => $validated['optionC'],
-                    'optionD' => $validated['optionD'],
-                    'answer' => $validated['answer'],
-                ]);
+            $http = Http::withToken(Session::get('jwt_token'));
+
+            if ($request->hasFile('photo')) {
+                $http = $http->attach(
+                    'image',
+                    file_get_contents($request->file('photo')->getRealPath()),
+                    $request->file('photo')->getClientOriginalName()
+                );
+            }
+
+            $response = $http->post('https://api.arsitek-kode.com/api/soal', $payload);
 
             if ($response->successful()) {
-                return redirect()->route('question.questionById', ['id' => $id])->with('success', 'Soal berhasil ditambahkan.');
+                return redirect()->route('question.questionById', ['id' => $id])
+                                ->with('success', 'Soal berhasil ditambahkan.');
             } else {
                 $message = $response['meta']['message'] ?? 'Gagal menambah soal.';
-                return redirect()->route('question.questionById', ['id' => $id])->with('error', $message);
+                return redirect()->route('question.questionById', ['id' => $id])
+                                ->with('error', $message);
             }
         } catch (\Exception $e) {
-            return back()->withErrors(['exception' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
+            return back()->withErrors(['exception' => 'Terjadi kesalahan: ' . $e->getMessage()])
+                        ->withInput();
         }
     }
 
@@ -129,27 +151,59 @@ class QuestionController extends Controller
             'optionC' => 'required|string',
             'optionD' => 'required|string',
             'answer' => 'required|string',
+            'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:10240',
+            'video' => 'nullable|string',
         ]);
 
         try {
-            $response = Http::withToken(Session::get('jwt_token'))
-                ->put('https://api.arsitek-kode.com/api/soal/update/' . $id, [
-                    'question' => $validated['question'],
-                    'optionA' => $validated['optionA'],
-                    'optionB' => $validated['optionB'],
-                    'optionC' => $validated['optionC'],
-                    'optionD' => $validated['optionD'],
-                    'answer' => $validated['answer'],
-                ]);
+            $client = new Client();
+            $multipart = [
+                [ 'name' => 'question', 'contents' => $validated['question'] ],
+                [ 'name' => 'optionA', 'contents' => $validated['optionA'] ],
+                [ 'name' => 'optionB', 'contents' => $validated['optionB'] ],
+                [ 'name' => 'optionC', 'contents' => $validated['optionC'] ],
+                [ 'name' => 'optionD', 'contents' => $validated['optionD'] ],
+                [ 'name' => 'answer',  'contents' => $validated['answer'] ],
+            ];
 
-            if ($response->successful()) {
-                return redirect()->route('question.questionById', ['id' => $returnId])->with('success', 'Soal berhasil diubah.');
-            } else {
-                $message = $response['meta']['message'] ?? 'Gagal mengubah soal.';
-                return redirect()->route('question.questionById', ['id' => $returnId])->with('error', $message);
+            if (!empty($validated['video'])) {
+                $multipart[] = [ 'name' => 'video', 'contents' => $validated['video'] ];
             }
-        } catch (\Exception $e) {
-            return back()->withErrors(['exception' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
+
+            if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $multipart[] = [
+                    'name'     => 'image',
+                    'contents' => fopen($photo->getRealPath(), 'r'),
+                    'filename' => $photo->getClientOriginalName(),
+                ];
+            }
+
+            $response = $client->request('PUT', 'https://api.arsitek-kode.com/api/soal/update/' . $id, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('jwt_token'),
+                    'Accept'        => 'application/json',
+                ],
+                'multipart' => $multipart,
+            ]);
+
+            $statusCode = $response->getStatusCode();
+            $body = json_decode($response->getBody(), true);
+
+            if ($statusCode >= 200 && $statusCode < 300) {
+                return redirect()->route('question.questionById', ['id' => $returnId])
+                    ->with('success', 'Soal berhasil diubah.');
+            } else {
+                $message = $body['meta']['message'] ?? 'Gagal mengubah soal.';
+                return redirect()->route('question.questionById', ['id' => $returnId])
+                    ->with('error', $message);
+            }
+        } catch (RequestException $e) {
+            $errorMsg = $e->hasResponse() 
+                ? json_decode($e->getResponse()->getBody(), true)['meta']['message'] ?? $e->getMessage()
+                : $e->getMessage();
+
+            return back()->withErrors(['exception' => 'Terjadi kesalahan: ' . $errorMsg])->withInput();
         }
     }
 

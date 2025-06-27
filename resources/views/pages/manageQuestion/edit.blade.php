@@ -6,7 +6,8 @@
             <h1 class="text-xl font-semibold">Edit Question (#{{ $question['id'] }})</h1>
         </div>
         <div class="px-4 py-5 sm:p-6">
-            <form action="{{ route('question.edit', $question['id']) }}" method="POST" class="p-4">
+            <form action="{{ route('question.edit', $question['id']) }}" method="POST" enctype="multipart/form-data"
+                class="p-4">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -68,6 +69,55 @@
                             <input id="optionD" name="optionD" type="text" autocomplete="optionD"
                                 value="{{ $question['optionD'] }}"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
+                        </div>
+                    </div>
+                    <div x-data="{ attachmentType: '{{ old('video', $question['video']) ? 'video' : (old('image', $question['image']) ? 'image' : '') }}' }">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="w-full col-span-2">
+                                <label for="attachment" class="block text-sm/6 font-medium text-gray-900">Attachment
+                                    (Optional)</label>
+                                <div class="mt-2 relative">
+                                    <select id="attachment" name="attachment" autocomplete="attachment"
+                                        x-model="attachmentType"
+                                        class="block w-full appearance-none rounded-md bg-white py-1.5 pr-10 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                        <option selected disabled value="">Default</option>
+                                        <option value="image">Image</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">
+                                        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div x-show="attachmentType === 'video'" class="w-full col-span-2">
+                                <label for="video" class="block text-sm font-medium text-gray-900">Video Link</label>
+                                <div class="mt-2">
+                                    <input id="video" name="video" type="text" autocomplete="video"
+                                        value="{{ old('video', $question['video']) }}"
+                                        class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
+                                </div>
+                            </div>
+                            <div x-show="attachmentType === 'image'" class="w-full col-span-2">
+                                <label for="photo" class="block text-sm font-medium text-gray-900">Upload Image (Max:
+                                    10mb)</label>
+                                <div class="mt-2">
+                                    <input id="photo" name="photo" type="file" accept=".png, .jpg, .jpeg"
+                                        class="block w-full rounded-md bg-white text-base text-gray-900 file:bg-indigo-600 file:text-white file:font-medium file:px-4 file:py-2 file:rounded file:border-0 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
+                                </div>
+                                @if ($question['image'])
+                                    <p class="text-sm text-gray-600 mt-2">Current file: {{ $question['image'] }}</p>
+                                    <div class="mt-2">
+                                        <img src="https://api.arsitek-kode.com/public/questions/{{ $question['image'] }}"
+                                            alt="Current Image"
+                                            class="rounded border shadow max-w-[300px] max-h-[200px] object-contain">
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
