@@ -279,7 +279,7 @@
                                                                     </div>
                                                                     <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                                                                         <form method="POST"
-                                                                            action="{{ route('question.delete', $item['id']) }}">
+                                                                            action="{{ route('question.delete', $item['id'], $examId) }}">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit"

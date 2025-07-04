@@ -116,7 +116,7 @@
                                             {{ $practice['kategori'] ?? '-' }}
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                            {{ floor(($practice['durasi'] ?? 0) / 60) }} Minutes
+                                            {{ $practice['durasi'] }} Minutes
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{ \Illuminate\Support\Str::limit($practice['video'] ?? '-', 25) }}

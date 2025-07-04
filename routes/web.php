@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CoachController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 // Auth
 Route::middleware(['isGuest'])->group(function () {
@@ -17,9 +18,7 @@ Route::middleware(['isGuest'])->group(function () {
 // Dashboard
 Route::middleware(['isJwt'])->group(function () {
     // Home Page
-    Route::get('/dashboard', fn() =>
-        view('pages.dashboard.index', ['title' => 'Dashboard'])
-    );
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // Auth
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -207,7 +207,7 @@ class QuestionController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete($id, $examId)
     {
         try {
             $response = Http::withToken(Session::get('jwt_token'))
@@ -216,10 +216,10 @@ class QuestionController extends Controller
             $data = $response->json();
 
             if ($response->successful()) {
-                return redirect()->route('question.questionById', ['id' => $id])->with('success', 'Soal berhasil dihapus.');
+                return redirect()->route('question.questionById', ['id' => $examId])->with('success', 'Soal berhasil dihapus.');
             } else {
                 $message = $data['meta']['message'] ?? 'Gagal menghapus soal.';
-                return redirect()->route('question.questionById', ['id' => $id])->with('error', $message);
+                return redirect()->route('question.questionById', ['id' => $examId])->with('error', $message);
             }
         } catch (\Exception $e) {
             return redirect()->route('question.questionById', ['id' => $id])

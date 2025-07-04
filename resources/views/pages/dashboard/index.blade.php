@@ -9,23 +9,23 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <div class="rounded-lg bg-white shadow p-4">
                     <div class="text-gray-600">Total Users</div>
-                    <div class="text-2xl font-bold">10</div>
+                    <div class="text-2xl font-bold">{{ $totalUsers }}</div>
                 </div>
                 <div class="rounded-lg bg-white shadow p-4">
                     <div class="text-gray-600">Total Coaches</div>
-                    <div class="text-2xl font-bold">10</div>
+                    <div class="text-2xl font-bold">{{ $totalCoaches }}</div>
                 </div>
                 <div class="rounded-lg bg-white shadow p-4">
                     <div class="text-gray-600">Total Practices</div>
-                    <div class="text-2xl font-bold">10</div>
+                    <div class="text-2xl font-bold">{{ $totalPractices }}</div>
                 </div>
                 <div class="rounded-lg bg-white shadow p-4">
                     <div class="text-gray-600">Total Exams</div>
-                    <div class="text-2xl font-bold">10</div>
+                    <div class="text-2xl font-bold">{{ $totalExams }}</div>
                 </div>
                 <div class="rounded-lg bg-white shadow p-4">
                     <div class="text-gray-600">Total Questions</div>
-                    <div class="text-2xl font-bold">10</div>
+                    <div class="text-2xl font-bold">{{ $totalQuestions }}</div>
                 </div>
             </div>
         </div>
