@@ -1,7 +1,6 @@
 <div class="h-screen flex flex-col px-6 py-4 border-r border-gray-200 bg-white">
     <div class="flex h-16 items-center">
-        {{-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Badminton App"> --}}
-        <span class="text-xl font-semibold text-black">Badminton App</span>
+        <img class="w-full" src="{{ asset('img/logo.png') }}" alt="Badminton App">
     </div>
 
     <nav class="flex flex-1 flex-col mt-4">

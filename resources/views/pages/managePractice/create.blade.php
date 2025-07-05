@@ -3,15 +3,16 @@
 @section('content')
     <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div class="px-4 py-5 sm:px-6">
-            <h1 class="text-xl font-semibold">Create Pratice</h1>
+            <h1 class="text-xl font-semibold">Create Practice</h1>
         </div>
         <div class="px-4 py-5 sm:p-6">
-            <form action="{{ route('practice.create') }}" method="POST" class="p-4">
+            <form action="{{ route('practice.create') }}" method="POST" enctype="multipart/form-data" class="p-4"
+                x-data="{ isAR: false }">
                 @csrf
                 <div class="relative flex items-start mb-5">
                     <div class="flex h-6 items-center">
                         <input id="ar" aria-describedby="ar" name="ar" type="checkbox" value="1"
-                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            x-model="isAR" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                     </div>
                     <div class="ml-3 text-sm leading-6">
                         <label for="ar" class="font-medium text-gray-900">Augmented Reality</label>
@@ -42,7 +43,7 @@
                     <div>
                         <label for="durasi" class="block text-sm font-medium text-gray-900">Duration (minute)</label>
                         <div class="mt-2">
-                            <input id="durasi" name="durasi" type="durasi" autocomplete="durasi"
+                            <input id="durasi" name="durasi" type="text" autocomplete="durasi"
                                 class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>
@@ -51,6 +52,14 @@
                         <div class="mt-2">
                             <textarea name="deskripsi" id="deskripsi" rows="5"
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-span-1" x-show="isAR">
+                        <label for="glb" class="block text-sm font-medium text-gray-900">Upload .glb 3D Model File
+                            (Max: 50MB)</label>
+                        <div class="mt-2">
+                            <input id="glb" name="glb" type="file" accept=".glb"
+                                class="block w-full rounded-md bg-white text-base text-gray-900 file:bg-indigo-600 file:text-white file:font-medium file:px-4 file:py-2 file:rounded file:border-0 outline outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
                         </div>
                     </div>
                 </div>

@@ -13,11 +13,9 @@
 <body class="h-full">
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 ">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-10 w-auto"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Badminton App" />
+            <img class="mx-auto max-w-[250px] w-full h-auto" src="{{ asset('img/logo.png') }}" alt="Badminton App" />
         </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border border-gray-200 rounded-xl shadow-md p-6 bg-white">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm border border-gray-200 rounded-xl shadow-md p-6 bg-white">
             <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
             <form class="space-y-6 mt-10" action="{{ route('login') }}" method="POST">
                 @csrf

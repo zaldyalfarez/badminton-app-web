@@ -42,19 +42,49 @@ class PracticeController extends Controller
             'durasi' => 'required|integer|min:1',
             'kategori' => 'required|string',
             'deskripsi' => 'required|string',
-            'video' => 'required|string'
+            'video' => 'required|string',
+            'glb' => 'nullable|file|mimetypes:model/gltf-binary,application/octet-stream,application/octet-stream-glb,model/gltf+binary,model/gltf|max:51200',
         ]);
+
+        $payload = [
+            [
+                'name' => 'name',
+                'contents' => $validated['name']
+            ],
+            [
+                'name' => 'durasi',
+                'contents' => $validated['durasi']
+            ],
+            [
+                'name' => 'kategori',
+                'contents' => $validated['kategori']
+            ],
+            [
+                'name' => 'deskripsi',
+                'contents' => $validated['deskripsi']
+            ],
+            [
+                'name' => 'video',
+                'contents' => $validated['video']
+            ],
+            [
+                'name' => 'ar',
+                'contents' => $ar ? 'true' : 'false'
+            ]
+        ];
+
+        if ($request->hasFile('glb')) {
+            $payload[] = [
+                'name' => 'arModel',
+                'contents' => fopen($request->file('glb')->getRealPath(), 'r'),
+                'filename' => $request->file('glb')->getClientOriginalName()
+            ];
+        }
 
         try {
             $response = Http::withToken(Session::get('jwt_token'))
-                ->post('https://api.arsitek-kode.com/api/latihan', [
-                    'name' => $validated['name'],
-                    'durasi' => $validated['durasi'],
-                    'kategori' => $validated['kategori'],
-                    'deskripsi' => $validated['deskripsi'],
-                    'video' => $validated['video'],
-                    'ar' => $ar
-                ]);
+                ->asMultipart()
+                ->post('https://api.arsitek-kode.com/api/latihan', $payload);
 
             if ($response->successful()) {
                 return redirect()->route('dashboard.practice')->with('success', 'Latihan berhasil ditambahkan.');
@@ -102,17 +132,31 @@ class PracticeController extends Controller
             'video' => 'required|string',
             'duration' => 'required|integer|min:1',
             'description' => 'required|string',
+            'glb' => 'nullable|file|mimetypes:model/gltf-binary,application/octet-stream,application/octet-stream-glb,model/gltf+binary,model/gltf|max:51200',
         ]);
+
+        $multipart = [
+            ['name' => 'name', 'contents' => $validated['name']],
+            ['name' => 'kategori', 'contents' => $validated['category']],
+            ['name' => 'video', 'contents' => $validated['video']],
+            ['name' => 'durasi', 'contents' => $validated['duration']],
+            ['name' => 'deskripsi', 'contents' => $validated['description']],
+            ['name' => 'ar', 'contents' => $ar ? 'true' : 'false'],
+        ];
+
+        if ($request->hasFile('glb')) {
+            $multipart[] = [
+                'name' => 'arModel',
+                'contents' => fopen($request->file('glb')->getRealPath(), 'r'),
+                'filename' => $request->file('glb')->getClientOriginalName()
+            ];
+        }
 
         try {
             $response = Http::withToken(Session::get('jwt_token'))
-                ->put('https://api.arsitek-kode.com/api/latihan/update/' . $id, [
-                    'name' => $validated['name'],
-                    'kategori' => $validated['category'],
-                    'video' => $validated['video'],
-                    'durasi' => $validated['duration'] * 60,
-                    'deskripsi' => $validated['description'],
-                    'ar' => $ar
+                ->asMultipart()
+                ->send('PUT', 'https://api.arsitek-kode.com/api/latihan/update/' . $id, [
+                    'multipart' => $multipart
                 ]);
 
             if ($response->successful()) {
