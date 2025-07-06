@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('css/global.css') }}" />
-    <title>Login Page</title>
+    <title>Badminton App |Login Page</title>
 </head>
 
 <body class="h-full">
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 ">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <a href="/" class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto max-w-[250px] w-full h-auto" src="{{ asset('img/logo.png') }}" alt="Badminton App" />
-        </div>
+        </a>
         <div class="sm:mx-auto sm:w-full sm:max-w-sm border border-gray-200 rounded-xl shadow-md p-6 bg-white">
             <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
             <form class="space-y-6 mt-10" action="{{ route('login') }}" method="POST">
@@ -29,10 +29,11 @@
                 <div>
                     <div class="flex items-center justify-between">
                         <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-                        {{-- <div class="text-sm">
-                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
+                        <div class="text-sm">
+                            <a href="/forgot-password"
+                                class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
                                 password?</a>
-                        </div> --}}
+                        </div>
                     </div>
                     <div class="mt-2">
                         <input type="password" name="password" id="password" autocomplete="password" required
@@ -45,7 +46,7 @@
                         in</button>
                 </div>
             </form>
-            <p class="mt-10 text-center text-sm/6 text-gray-500">
+            <p class="mt-6 text-center text-sm/6 text-gray-500">
                 Welcome back! Please enter your credentials.
             </p>
         </div>

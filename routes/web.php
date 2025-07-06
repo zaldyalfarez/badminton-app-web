@@ -11,8 +11,17 @@ use App\Http\Controllers\DashboardController;
 
 // Auth
 Route::middleware(['isGuest'])->group(function () {
+    // Login
     Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/', [AuthController::class, 'login']);
+
+    // Forgot Password
+    Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.forgot');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+
+    // Reset Password
+    Route::get('/reset-password', [AuthController::class, 'showResetPasswordForm'])->name('password.update');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
 
 // Dashboard

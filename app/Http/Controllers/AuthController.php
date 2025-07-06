@@ -12,6 +12,16 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+
+    public function showForgotPasswordForm()
+    {
+        return view('auth.forgot-password');
+    }
+
+    public function showResetPasswordForm()
+    {
+        return view('auth.change-password');
+    }
     
     public function login(Request $request)
     {
@@ -36,6 +46,44 @@ class AuthController extends Controller
         }
 
         return back()->withErrors(['login' => $data['meta']['message'] ?? 'Email atau password salah']);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+        'email' => 'required|email',
+        ]);
+
+        $response = Http::post('https://api.arsitek-kode.com/api/forgot-password', [
+            'email' => $request->email,
+        ]);
+
+        if ($response->successful()) {
+            return back()->with('success', 'Password reset link has been sent to your email.');
+        }
+
+        return back()->withErrors([
+            'email' => $response->json('meta.message') ?? 'Failed to send reset link. Please try again.',
+        ]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+            'token' => 'required',
+        ]);
+
+        $response = Http::post('https://api.arsitek-kode.com/api/reset-password', [
+            'password' => $request->password,
+            'forgotToken' => $request->token,
+        ]);
+
+        if ($response->successful()) {
+            return back()->with('success', 'Your password has been reset successfully.');
+        }
+
+        return back()->with('error', $response->json('meta.message') ?? 'Failed to reset password. Please try again.');
     }
 
 
