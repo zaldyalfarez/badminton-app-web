@@ -36,7 +36,7 @@ class AuthController extends Controller
             $user = $data['data']['userLogin'];
 
             if ($user['role'] !== 'admin') {
-                return back()->withErrors(['login' => 'Akun ini tidak memiliki izin untuk masuk.']);
+                return back()->withErrors(['login' => 'This account has no permission to login.']);
             }
 
             Session::put('jwt_token', $data['data']['token']);
@@ -45,7 +45,7 @@ class AuthController extends Controller
             return redirect('/dashboard');
         }
 
-        return back()->withErrors(['login' => $data['meta']['message'] ?? 'Email atau password salah']);
+        return back()->withErrors(['login' => 'Email or Password is incorrect.']);
     }
 
     public function forgotPassword(Request $request)
@@ -85,7 +85,6 @@ class AuthController extends Controller
 
         return back()->with('error', $response->json('meta.message') ?? 'Failed to reset password. Please try again.');
     }
-
 
     public function logout(Request $request)
     {

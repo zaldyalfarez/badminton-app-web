@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('css/global.css') }}" />
-    <title>Badminton App |Login Page</title>
+    <title>Badminton App | Login Page</title>
 </head>
 
 <body class="h-full">
@@ -40,6 +40,11 @@
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                     </div>
                 </div>
+                @if ($errors->has('login'))
+                    <p class="mt-4 text-center text-sm text-red-600 font-medium">
+                        {{ $errors->first('login') }}
+                    </p>
+                @endif
                 <div>
                     <button type="submit"
                         class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
